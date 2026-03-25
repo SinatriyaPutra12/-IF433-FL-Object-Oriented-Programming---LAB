@@ -24,6 +24,17 @@ fun main() {
     val data3 = data1.copy(age = 23)
     println("Hasil Copy: data3")
 
-    val (userName, userAge) = data1 // Destructuring Declaration
+    val (userName, userAge) = data1
     println("Destructured: userName berumur userAge")
+
+    println("\n=== TEST SEALED CLASS ===")
+    val response: ApiResponse = ApiResponse.Success("Data berhasil ditarik!")
+
+    // ERROR: 'when' expression must be exhaustive (Loading missing – intentional)
+    /*
+    val uiMessage = when(response) {
+        is ApiResponse.Success -> "Tampilkan: {response.data}"
+        is ApiResponse.Error   -> "Munculkan alert: {response.message}"
+    }
+    */
 }
