@@ -1,6 +1,7 @@
 ﻿package oop_00000070427_sinatriyaariaputra.week07
 
 fun main() {
+    // ── LATIHAN TERBIMBING 1 ──────────────────────────────────
     println("=== TEST SINGLETON ===")
     println("Status: {DatabaseManager.connectionStatus}")
     DatabaseManager.connect()
@@ -9,6 +10,7 @@ fun main() {
     val client = NetworkClient.createClient()
     client.connect()
 
+    // ── LATIHAN TERBIMBING 2 ──────────────────────────────────
     println("\n=== TEST REGULAR CLASS ===")
     val reg1 = RegularUser("Alice", 22)
     val reg2 = RegularUser("Alice", 22)
@@ -27,6 +29,7 @@ fun main() {
     val (userName, userAge) = data1
     println("Destructured: userName berumur userAge")
 
+    // ── LATIHAN TERBIMBING 3 ──────────────────────────────────
     println("\n=== TEST SEALED CLASS ===")
     val response: ApiResponse = ApiResponse.Success("Data berhasil ditarik!")
 
@@ -36,4 +39,9 @@ fun main() {
         ApiResponse.Loading    -> "Tampilkan Spinner"
     }
     println(uiMessage)
+
+    // ── TUGAS MANDIRI ─────────────────────────────────────────
+    println("\n=== TEST GAME MANAGER SINGLETON ===")
+    GameManager.startGame() // Pertama: Mulai
+    GameManager.startGame() // Kedua: Harus ditolak (singleton)
 }
