@@ -42,6 +42,12 @@ fun main() {
 
     // ── TUGAS MANDIRI ─────────────────────────────────────────
     println("\n=== TEST GAME MANAGER SINGLETON ===")
-    GameManager.startGame() // Pertama: Mulai
-    GameManager.startGame() // Kedua: Harus ditolak (singleton)
+    GameManager.startGame()
+    GameManager.startGame()
+
+    println("\n=== TEST RARITY & FACTORY ===")
+    println("Drop Chance LEGENDARY: {ItemRarity.LEGENDARY.dropChance}%")
+
+    val starterWeapon = Weapon.forgeStarterSword()
+    println("Senjata awal: starterWeapon")
 }
