@@ -36,4 +36,10 @@ fun main() {
         ApiResponse.Loading -> "Tampilkan Spinner"
     }
     println(uiMessage)
+
+    println("\n========== RPG GAME SIMULATION ==========")
+
+    println("\n--- TEST GAME MANAGER SINGLETON ---")
+    GameManager.startGame()
+    GameManager.startGame() // Harus print "Game sudah berjalan!"
 }
