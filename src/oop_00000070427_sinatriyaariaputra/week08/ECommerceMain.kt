@@ -1,12 +1,16 @@
 ﻿package oop_00000070427_sinatriyaariaputra.week08
 
 fun main() {
+    println("========================================")
+    println("  E-COMMERCE API PARSER PIPELINE TEST  ")
+    println("========================================")
+
     val rawApiData: List<Map<String, Any?>> = listOf(
         mapOf("id" to "E01", "name" to "Laptop",    "type" to "ELECTRONIC", "warranty" to 24),
         mapOf("id" to "C01", "name" to "T-Shirt",   "type" to "CLOTHING",   "size" to "XL"),
-        mapOf("id" to "E02", "name" to "Mouse",     "type" to "ELECTRONIC", "warranty" to "Not An Integer"), // Corrupted warranty
-        mapOf(               "name" to "Ghost Item","type" to "CLOTHING"),                                    // Missing ID!
-        mapOf("id" to "X01", "name" to "Unknown",   "type" to "FOOD")                                        // Unknown type
+        mapOf("id" to "E02", "name" to "Mouse",     "type" to "ELECTRONIC", "warranty" to "Not An Integer"), // Corrupted warranty -> fallback 12
+        mapOf(               "name" to "Ghost Item","type" to "CLOTHING"),                                    // Missing ID -> exception
+        mapOf("id" to "X01", "name" to "Unknown",   "type" to "FOOD")                                        // Unknown type -> null -> skip
     )
 
     val parser = ApiParser()
@@ -15,7 +19,6 @@ fun main() {
         try {
             val product = parser.parseProduct(raw)
 
-            // ?.let memastikan checkout hanya dipanggil jika product tidak null
             product?.let {
                 when (it) {
                     is Product.Electronic -> println("[PARSED] Electronic: {it.name} | Warranty: {it.warrantyMonths} bulan")
@@ -27,5 +30,10 @@ fun main() {
         } catch (e: IllegalArgumentException) {
             println("[ERROR] Data korup diabaikan: {e.message}")
         }
+        println("----------------------------------------")
     }
+
+    println("========================================")
+    println("  PIPELINE SELESAI                      ")
+    println("========================================")
 }
