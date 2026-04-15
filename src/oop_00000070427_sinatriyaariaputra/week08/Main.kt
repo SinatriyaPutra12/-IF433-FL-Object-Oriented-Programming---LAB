@@ -52,11 +52,16 @@ fun main() {
     println("\n=== TEST requireNotNull ===")
     val apiResponse: Map<String, String?> = mapOf("status" to "200", "token" to null)
     try {
-        // Alih-alih apiResponse["token"]!!
         val token = requireNotNull(apiResponse["token"]) {
             "CRITICAL EXCEPTION: Token otentikasi tidak ditemukan dari server!"
         }
     } catch (e: IllegalArgumentException) {
-        println(e.message) // Mencetak pesan custom kita, bukan crash buta
+        println(e.message)
     }
+
+    println("\n=== TEST JAVA INTEROP ===")
+    val javaResponse = LegacyJavaAPI.fetchServerStatus()
+    // Kita menekan tombol !! karena KITA TAHU implementasi Java-nya aman
+    val statusLength = javaResponse!!.length
+    println("Status dari Java: javaResponse (Length: statusLength)")
 }
