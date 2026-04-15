@@ -34,11 +34,19 @@ fun main() {
     val safeString = someObject as? String ?: "Unknown String"
     println("Hasil cast + fallback: safeString")
 
-    // Verifikasi NotificationService + Smart Cast
     println("\n=== TEST SMART CAST ===")
     val service = NotificationService()
     val userWithEmail    = UserProfile("Budi", "budi@email.com")
     val userWithoutEmail = UserProfile("Cici", null)
     service.processUser(userWithEmail)
     service.processUser(userWithoutEmail)
+
+    println("\n=== TEST THE RED BUTTON (!!) ===")
+    val toxicData: String? = null
+    try {
+        // DANGEROUS: Memaksa compiler percaya data ini tidak null
+        val length = toxicData!!.length
+    } catch (e: NullPointerException) {
+        println("CRASH (NPE)! Jangan gunakan !! secara sembarangan.")
+    }
 }
