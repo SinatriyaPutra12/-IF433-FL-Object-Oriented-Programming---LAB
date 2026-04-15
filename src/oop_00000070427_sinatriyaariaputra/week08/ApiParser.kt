@@ -11,24 +11,27 @@ class ApiParser {
 
         return when (type) {
             "ELECTRONIC" -> {
-                val warranty = rawJson["warranty"] as? Int ?: 12 // fallback Elvis jika corrupt
+                // as? Int dengan Elvis fallback jika warranty corrupt
+                val warranty = rawJson["warranty"] as? Int ?: 12
                 Product.Electronic(id, name, warranty)
             }
             "CLOTHING" -> {
-                val size = rawJson["size"] as? String ?: "All Size" // fallback Elvis
+                // as? String dengan Elvis fallback jika size tidak ada
+                val size = rawJson["size"] as? String ?: "All Size"
                 Product.Clothing(id, name, size)
             }
-            else -> null // Unknown type atau null -> skip
+            else -> null
         }
     }
 
     fun checkout(product: Product) {
+        // Smart cast via when pada sealed class untuk ekstrak ID
         val id = when (product) {
             is Product.Electronic -> product.id
             is Product.Clothing   -> product.id
         }
 
-        // Kita yakin Java service selalu berhasil -> gunakan !!
+        // !! digunakan karena kita YAKIN JavaPaymentService selalu return non-null (Java Interop)
         val transactionId = JavaPaymentService.processPayment(id)!!
         println("[CHECKOUT] Transaction ID: transactionId")
     }
