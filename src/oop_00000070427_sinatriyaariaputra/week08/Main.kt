@@ -30,8 +30,15 @@ fun main() {
         }
     }
 
-    val someObject: Any = 100 // Tipe aslinya Integer
-    // Coba cast ke String. Jika gagal (null), ganti dengan "Unknown String"
+    val someObject: Any = 100
     val safeString = someObject as? String ?: "Unknown String"
     println("Hasil cast + fallback: safeString")
+
+    // Verifikasi NotificationService + Smart Cast
+    println("\n=== TEST SMART CAST ===")
+    val service = NotificationService()
+    val userWithEmail    = UserProfile("Budi", "budi@email.com")
+    val userWithoutEmail = UserProfile("Cici", null)
+    service.processUser(userWithEmail)
+    service.processUser(userWithoutEmail)
 }
