@@ -1,4 +1,4 @@
-﻿package oop_00000070427_SinatriyaAriaPutra.week10
+﻿package oop_00000070427_sinatriyaariaputra.week10
 
 fun main() {
     // ----- COIN REPOSITORY -----
@@ -15,10 +15,20 @@ fun main() {
     // Display dashboard
     println("=== CRYPTO DASHBOARD ===")
     println("Status: ${response.status}")
+    println("Total Koin Terdaftar: ${coinRepo.count()}")
     println("--- Daftar Koin ---")
     response.data.forEach { coin ->
         println("Koin: ${coin.name} | Saldo: ${coin.balance}")
     }
+
+    // Total balance
+    val totalBalance = response.data.sumOf { it.balance }
+    println("Total Balance: $totalBalance")
+
+    // Search example
+    val highBalance = coinRepo.search { it.balance > 1.0 }
+    println("\n--- Koin dengan Saldo > 1.0 ---")
+    highBalance.forEach { println("  ${it.name}: ${it.balance}") }
 
     // ----- TRANSACTION REPOSITORY -----
     val txRepo = WalletRepository<Transaction>()
@@ -30,9 +40,13 @@ fun main() {
 
     println("\n--- Riwayat Transaksi ---")
     println("Status: ${txResponse.status}")
+    println("Total Transaksi: ${txRepo.count()}")
     txResponse.data.forEach { tx ->
         println("ID: ${tx.id} | Jumlah: ${tx.amount}")
     }
+
+    val totalTx = txResponse.data.sumOf { it.amount }
+    println("Total Volume Transaksi: $totalTx")
 
     println("\n=== END OF DASHBOARD ===")
 }
