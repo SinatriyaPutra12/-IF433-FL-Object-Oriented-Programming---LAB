@@ -1,4 +1,4 @@
-﻿package oop_00000070427_SinatriyaAriaPutra.week10
+﻿package oop_00000070427_sinatriyaariaputra.week10
 
 fun main() {
     println("=== TEST GENERIC CLASS ===")
