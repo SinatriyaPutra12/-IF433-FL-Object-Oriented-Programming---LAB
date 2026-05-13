@@ -7,7 +7,6 @@ data class SmartDevice(
     var powerLoad: Int = 0
 )
 
-// Extension function untuk diagnostik perangkat
 fun SmartDevice.diagnose(): String {
     return "[DIAGNOSTIK] $name | Kategori: $category | Status: ${if (isOnline) "Online" else "Offline"} | Daya: $powerLoad Watt"
 }
