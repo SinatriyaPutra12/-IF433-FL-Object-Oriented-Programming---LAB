@@ -22,6 +22,7 @@ fun main() {
         println("User Detail -> Nama: $name, Umur: $age")
     }
 
+    // Gabungkan apply dan also
     val newUser = User("Budi", 20).apply {
         age = 21 // Mengubah umur
     }.also {
