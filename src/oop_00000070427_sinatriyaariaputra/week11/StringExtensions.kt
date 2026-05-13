@@ -10,7 +10,7 @@ fun String.repeatTimes(n: Int): String {
     return this.repeat(n)
 }
 
-// Nullable receiver: 'this' bisa bernilai null, jadi harus ditangani
+// Nullable receiver - 'this' bisa bernilai null
 fun String?.isNullOrEmptyCustom(): Boolean {
     return this == null || this.isEmpty()
 }
