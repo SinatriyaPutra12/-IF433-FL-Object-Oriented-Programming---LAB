@@ -26,8 +26,16 @@ fun fromCsvTrade(line: String): TradeRecord? {
             pnl    = parts[4].toDouble()
         )
     } catch (e: Exception) {
-        // Tangkap NumberFormatException, IndexOutOfBoundsException, dll
         println("(Log) Data korup diabaikan: line")
         null
+    }
+}
+
+// Write System: simpan list trades ke CSV dengan use block
+fun saveTrades(trades: List<TradeRecord>, path: String) {
+    File(path).printWriter().use { writer ->
+        trades.forEach { trade ->
+            writer.println(trade.toCsv())
+        }
     }
 }
