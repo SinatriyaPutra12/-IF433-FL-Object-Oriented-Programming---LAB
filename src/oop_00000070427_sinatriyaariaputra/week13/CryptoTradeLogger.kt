@@ -58,7 +58,10 @@ fun main() {
         TradeRecord(id = 3, symbol = "SOLUSDT", type = "Long",  margin = 200.0,  pnl = 88.75)
     )
 
-    // Simpan ke file CSV
     saveTrades(simulatedTrades, path = "crypto_trades.csv")
     println("Trade records berhasil disimpan ke crypto_trades.csv")
+
+    // Inject baris korup untuk menguji robustness sistem
+    File("crypto_trades.csv").appendText("CORRUPT_ID,DOGEUSDT,Hold,XX,YY\n")
+    println("Baris korup berhasil di-inject ke crypto_trades.csv")
 }
