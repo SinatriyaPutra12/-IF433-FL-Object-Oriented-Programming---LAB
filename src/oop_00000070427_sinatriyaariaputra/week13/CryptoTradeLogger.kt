@@ -31,7 +31,7 @@ fun fromCsvTrade(line: String): TradeRecord? {
     }
 }
 
-// Write System: simpan list trades ke CSV dengan use block
+// Write System
 fun saveTrades(trades: List<TradeRecord>, path: String) {
     File(path).printWriter().use { writer ->
         trades.forEach { trade ->
@@ -40,13 +40,25 @@ fun saveTrades(trades: List<TradeRecord>, path: String) {
     }
 }
 
-// Load System: baca CSV, skip baris null (korup), tangkap FileNotFoundException
+// Load System
 fun loadTrades(path: String): List<TradeRecord> {
     return try {
         File(path).readLines().mapNotNull { fromCsvTrade(it) }
-        // mapNotNull otomatis membuang hasil null dari fromCsvTrade
     } catch (e: FileNotFoundException) {
         println("Error: File trades tidak ditemukan!")
         emptyList()
     }
+}
+
+fun main() {
+    // Simulasi riwayat trade kripto
+    val simulatedTrades = listOf(
+        TradeRecord(id = 1, symbol = "BTCUSDT", type = "Long",  margin = 500.0,  pnl = 125.50),
+        TradeRecord(id = 2, symbol = "ETHUSDT", type = "Short", margin = 300.0,  pnl = -45.20),
+        TradeRecord(id = 3, symbol = "SOLUSDT", type = "Long",  margin = 200.0,  pnl = 88.75)
+    )
+
+    // Simpan ke file CSV
+    saveTrades(simulatedTrades, path = "crypto_trades.csv")
+    println("Trade records berhasil disimpan ke crypto_trades.csv")
 }
