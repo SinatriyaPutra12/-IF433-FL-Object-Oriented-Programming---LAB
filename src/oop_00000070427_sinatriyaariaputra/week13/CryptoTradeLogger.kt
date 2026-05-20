@@ -39,3 +39,14 @@ fun saveTrades(trades: List<TradeRecord>, path: String) {
         }
     }
 }
+
+// Load System: baca CSV, skip baris null (korup), tangkap FileNotFoundException
+fun loadTrades(path: String): List<TradeRecord> {
+    return try {
+        File(path).readLines().mapNotNull { fromCsvTrade(it) }
+        // mapNotNull otomatis membuang hasil null dari fromCsvTrade
+    } catch (e: FileNotFoundException) {
+        println("Error: File trades tidak ditemukan!")
+        emptyList()
+    }
+}
