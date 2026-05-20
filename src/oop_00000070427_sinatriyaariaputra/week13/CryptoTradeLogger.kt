@@ -64,4 +64,10 @@ fun main() {
     // Inject baris korup untuk menguji robustness sistem
     File("crypto_trades.csv").appendText("CORRUPT_ID,DOGEUSDT,Hold,XX,YY\n")
     println("Baris korup berhasil di-inject ke crypto_trades.csv")
+
+    // Load histori + skip baris korup otomatis via mapNotNull
+    val loadedData = loadTrades(path = "crypto_trades.csv")
+
+    // Hitung total PnL bersih menggunakan higher-order function
+    val totalPnl = loadedData.sumOf { it.pnl }
 }
