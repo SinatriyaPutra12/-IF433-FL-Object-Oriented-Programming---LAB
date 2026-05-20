@@ -51,6 +51,10 @@ fun loadTrades(path: String): List<TradeRecord> {
 }
 
 fun main() {
+    println("========================================")
+    println("   CRYPTO TRADE LOGGER - BACKTEST MODE  ")
+    println("========================================")
+
     // Simulasi riwayat trade kripto
     val simulatedTrades = listOf(
         TradeRecord(id = 1, symbol = "BTCUSDT", type = "Long",  margin = 500.0,  pnl = 125.50),
@@ -59,15 +63,27 @@ fun main() {
     )
 
     saveTrades(simulatedTrades, path = "crypto_trades.csv")
-    println("Trade records berhasil disimpan ke crypto_trades.csv")
+    println("[SAVE] {simulatedTrades.size} trade records disimpan ke crypto_trades.csv")
 
     // Inject baris korup untuk menguji robustness sistem
     File("crypto_trades.csv").appendText("CORRUPT_ID,DOGEUSDT,Hold,XX,YY\n")
-    println("Baris korup berhasil di-inject ke crypto_trades.csv")
+    println("[INJECT] Baris korup DOGE di-inject untuk uji ketahanan sistem")
+
+    println("\n--- Memuat & Memvalidasi Data ---")
 
     // Load histori + skip baris korup otomatis via mapNotNull
     val loadedData = loadTrades(path = "crypto_trades.csv")
 
-    // Hitung total PnL bersih menggunakan higher-order function
+    println("\n--- Riwayat Trade Valid ---")
+    loadedData.forEach { trade ->
+        val pnlLabel = if (trade.pnl >= 0) "PROFIT" else "LOSS"
+        println("[#{trade.id}] {trade.symbol} | {trade.type} | Margin: {trade.margin} | PnL: {trade.pnl} (pnlLabel)")
+    }
+
+    // Hitung total PnL bersih
     val totalPnl = loadedData.sumOf { it.pnl }
+
+    println("\n========================================")
+    println("  ==== TOTAL PnL BERSIH: totalPnl ====")
+    println("========================================")
 }
