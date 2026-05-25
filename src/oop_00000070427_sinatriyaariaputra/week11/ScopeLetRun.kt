@@ -14,7 +14,7 @@ fun main() {
     println("\n=== TEST RUN FUNCTION ===")
     val result = "Kotlin".run {
         println("Memproses kata: ${this}") // 'this' bisa dihilangkan (implicit)
-        length * 2
+        length
     }
     println("Hasil kalkulasi run: $result")
 }
